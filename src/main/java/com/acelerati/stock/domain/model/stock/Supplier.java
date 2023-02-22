@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Supplier {
-
     private int id;
     private String name;
     private String description;

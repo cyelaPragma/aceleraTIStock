@@ -10,7 +10,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class Provision {
-
     private int id;
     private Date date;
     private int userId;

@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Product {
-
     private Long id;
     private Brand brand;
     private Category category;
