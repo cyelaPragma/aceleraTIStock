@@ -1,1 +1,6 @@
+jwt:
+  secret: secret
 
+  #tiempo de expiración serial (12 horas) tiempo en seg
+  expiration:
+    43200
