@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/stocks")
 public class StockController {
 
-   // @PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{productId}")
     public ResponseEntity<?> updatePrice(@PathVariable("productId") int productId ){
         System.out.println("Pasó por updatePrice");
