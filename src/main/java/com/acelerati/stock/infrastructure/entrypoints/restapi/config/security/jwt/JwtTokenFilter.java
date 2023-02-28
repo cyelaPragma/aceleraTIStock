@@ -1,10 +1,12 @@
-package com.acelerati.stock.infrastructure.entrypoints.restapi.config;
+package com.acelerati.stock.infrastructure.entrypoints.restapi.config.security.jwt;
 
+import com.acelerati.stock.infrastructure.entrypoints.restapi.config.security.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,14 +20,13 @@ import java.io.IOException;
  * Utiliza el provider para validar que sea valido
  * Si es valido permite acceso al recurso si no lanza una excepción
  */
-@Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
-
     @Autowired
     JwtProvider jwtProvider;
-
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
     // El token esta formado por:
      // cabecera --> Authorization: Bearer token
@@ -35,13 +36,20 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("Paso por doFilterInternal ");
         try{
             String token = getToken(request);
 
             if(token != null && jwtProvider.validateToken(token)){
                 UsernamePasswordAuthenticationToken auth = null;
                 String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
+                auth =
+                        new UsernamePasswordAuthenticationToken(userDetails,
+                                null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                logger.error("Método doFilter OK, name: " + auth.getName());
+                logger.error("Método doFilter OK, Authorities: " + auth.getAuthorities());
+                logger.error("Método doFilter OK, Credentials: " + auth.getCredentials());
             }
         }catch (Exception e){
             logger.error("Fail en el método doFilter " + e.getMessage());
@@ -54,7 +62,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private String getToken(HttpServletRequest request){
 
         String header = request.getHeader("Authorization");
-        System.out.println("*** header **** " + header);
         if(header != null && header.startsWith("Bearer"))
             return header.replace("Bearer ", "");
         return null;
