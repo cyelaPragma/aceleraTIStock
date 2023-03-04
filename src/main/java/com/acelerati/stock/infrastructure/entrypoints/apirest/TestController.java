@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="/tests")
 public class TestController {
-
     @GetMapping("/v1")
     public ResponseEntity<?> getTest(){
         return new ResponseEntity<>("Test endpoint", HttpStatus.OK);
