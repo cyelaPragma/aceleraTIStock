@@ -8,15 +8,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/aceleraTi/stock")
+@RequestMapping("/product")
 public class StockController {
     private final StockUseCase useCase;
+
+    @GetMapping()
+    public ResponseEntity<List<Stock>> getAllStock(){
+        var stock = useCase.getAllStock();
+        if (stock.isEmpty()){
+            return new ResponseEntity<>(stock, HttpStatus.NO_CONTENT);
+        }
+        return  new ResponseEntity<>(stock, HttpStatus.OK);
+    }
 
     @GetMapping("/{idStock}")
     public ResponseEntity<Stock> findStockById(@PathVariable("idStock") Long idStock){
@@ -27,8 +37,13 @@ public class StockController {
         return new ResponseEntity<>(stock, HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Stock>> getAllProducts(){
-        return  new ResponseEntity<>(useCase.getAllStock(), HttpStatus.OK);
+    @GetMapping("/filterStock")
+    public ResponseEntity<?> findProductsByCategoryAndBranAndSelPrice(
+            @RequestParam String category, @RequestParam String brand, @RequestParam Double salePrice){
+        var filterStock = useCase.findProductsByCategoryAndBranAndSelPrice(category, brand, salePrice);
+        if (filterStock.isEmpty()){
+            return new ResponseEntity<>(filterStock, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(filterStock, HttpStatus.OK);
     }
 }

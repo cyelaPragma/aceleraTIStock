@@ -7,10 +7,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Stock {
-    private Long id;
-    private Product product;
-    private Integer amount;
-    private Double supplierPrice;
-    private Double salePrice;
+public class Product {
+    private String name;
+    private String supplier;
+    private String category;
+    private String brand;
 }
