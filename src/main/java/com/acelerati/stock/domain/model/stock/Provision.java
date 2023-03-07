@@ -12,7 +12,7 @@ import java.util.Date;
 public class Provision {
     private Long id;
     private Date date;
-    private int userId;
+    private Long userId;
     private int stock;
     private Double entryPricing;
     private Supplier supplier;
