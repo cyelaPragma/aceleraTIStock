@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class Provision {
-    private int id;
+    private Long id;
     private Date date;
     private int userId;
     private int stock;
