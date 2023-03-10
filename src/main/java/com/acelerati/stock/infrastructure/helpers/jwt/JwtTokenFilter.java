@@ -21,7 +21,7 @@ import java.util.List;
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
-    private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     private List<String> excludedPrefixes = Arrays.asList("/auth/**", "/swagger-ui/**");
     private AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -51,8 +51,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private UserDetails getUserDetails(String token) {
-        UserDetails userDetails = new User(0L, jwtProvider.getNombreUsuarioFromToken(token), jwtProvider.getRole(token));
-        return userDetails;
+        return new User(0L, jwtProvider.getNombreUsuarioFromToken(token), jwtProvider.getRole(token));
     }
 
     private String getToken(HttpServletRequest request) {
