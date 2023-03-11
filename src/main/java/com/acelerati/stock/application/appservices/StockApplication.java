@@ -1,4 +1,4 @@
-package com.acelerati.stock;
+package com.acelerati.stock.application.appservices;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.acelerati.stock.domain.model.product;
+package com.acelerati.stock.domain.model.model.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
