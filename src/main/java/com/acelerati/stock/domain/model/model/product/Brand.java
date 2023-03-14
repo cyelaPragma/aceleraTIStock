@@ -1,4 +1,4 @@
-package com.acelerati.stock.domain.model.stock;
+package com.acelerati.stock.domain.model.model.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Supplier {
-    private int id;
+public class Brand {
+    private Long id;
     private String name;
     private String description;
 }
