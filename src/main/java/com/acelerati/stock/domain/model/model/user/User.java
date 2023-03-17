@@ -1,4 +1,4 @@
-package com.acelerati.stock.domain.model.provider;
+package com.acelerati.stock.domain.model.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Provider {
+public class User {
     private Long id;
     private String name;
     private String surname;

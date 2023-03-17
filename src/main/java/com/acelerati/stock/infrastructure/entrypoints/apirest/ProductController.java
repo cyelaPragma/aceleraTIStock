@@ -1,7 +1,7 @@
 package com.acelerati.stock.infrastructure.entrypoints.apirest;
 
-import com.acelerati.stock.domain.model.product.Product;
-import com.acelerati.stock.domain.usecase.GetProductsByStock;
+import com.acelerati.stock.domain.model.model.product.Product;
+import com.acelerati.stock.domain.usecase.orchestrator.GetProductsByServiceUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
-    private final GetProductsByStock useCase;
+    private final GetProductsByServiceUseCase getProductsByServiceUseCase;
 
     @GetMapping()
     public ResponseEntity<List<Product>> getAllStock(){
-        var products = useCase.getAllProducts();
+        var products = getProductsByServiceUseCase.getAllProducts();
         if (products.isEmpty()){
             return new ResponseEntity<>(products, HttpStatus.NO_CONTENT);
         }
@@ -29,7 +29,7 @@ public class ProductController {
 
     @GetMapping("/{idProduct}")
     public ResponseEntity<Product> findProductById(@PathVariable("idProduct") Long idProduct ){
-        var product = useCase.findProductById(idProduct);
+        var product = getProductsByServiceUseCase.findProductById(idProduct);
         if (product.getId() !=null){
             return new ResponseEntity<>(product, HttpStatus.OK);
         }

@@ -1,7 +1,8 @@
 package com.acelerati.stock.infrastructure.entrypoints.apirest;
 
-import com.acelerati.stock.domain.model.stock.Stock;
-import com.acelerati.stock.domain.usecase.GetProductsByStock;
+import com.acelerati.stock.domain.model.model.stock.Stock;
+import com.acelerati.stock.domain.usecase.ReadStockUseCase;
+import com.acelerati.stock.domain.usecase.orchestrator.GetProductsByServiceUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/stock")
 public class StockController {
-    private final GetProductsByStock productsByStock;
+    private final ReadStockUseCase readStockUseCase;
 
     @GetMapping("/{idStock}")
     public ResponseEntity<Stock> findStockById(@PathVariable("idStock") Long idStock){
-        var stock = productsByStock.findStockById(idStock);
+        var stock = readStockUseCase.findStockById(idStock);
         if (stock.getId() != null){
             return new ResponseEntity<>(stock, HttpStatus.OK);
         }

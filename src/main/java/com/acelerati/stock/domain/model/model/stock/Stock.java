@@ -1,5 +1,6 @@
-package com.acelerati.stock.domain.model.stock;
+package com.acelerati.stock.domain.model.model.stock;
 
+import com.acelerati.stock.domain.model.model.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +10,7 @@ import lombok.Setter;
 @Setter
 public class Stock {
     private Long id;
-    private Long idProduct;
     private int amount;
-    private Double supplierPrice;
+    private Product product;
     private Double salePrice;
 }

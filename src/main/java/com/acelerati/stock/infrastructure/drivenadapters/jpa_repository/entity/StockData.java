@@ -23,12 +23,10 @@ public class StockData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "ID_PRODUCT")
-    private Long productId;
     @Column(name = "AMOUNT_STOCK")
     private int amount;
-    @Column(name = "SUPPLIER_PRICE")
-    private Double supplierPrice;
+    @Column(name = "ID_PRODUCT")
+    private Long productId;
     @Column(name = "SALE_PRICE")
     private Double salePrice;
 }
