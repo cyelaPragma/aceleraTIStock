@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Stock {
-    private int id;
+    private Long id;
     private int amount;
     private Product product;
     private Double salePrice;
